@@ -7,19 +7,49 @@
 //
 
 import UIKit
+import QuartzCore
 
-class SecondViewController: UIViewController {
-
+class SecondViewController: UIViewController, UITextFieldDelegate {
+    
+    
+    @IBOutlet weak var inputTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        configureTextField()
+        self.inputTextField.delegate = self
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func configureTextField() {
+        inputTextField.layer.shadowColor = UIColor.black.cgColor
+        inputTextField.layer.shadowOpacity = 0.3
+        inputTextField.layer.shadowOffset = CGSize(width: -1, height: 5)
+        inputTextField.layer.shadowRadius = 5
     }
-
-
+    
+    @IBAction func addItem(_ sender: Any) {
+        
+        if inputTextField.text != "" {
+            list.append(inputTextField.text!)
+            inputTextField.text = ""
+            inputTextField.placeholder = "Item Title"
+        }
+        
+    }
+    
 }
+
+
+
+
+
+
+
+
+
 
